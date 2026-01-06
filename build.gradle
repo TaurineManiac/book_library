@@ -26,9 +26,21 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    //даёт нам различные аннтоации по типу @Entity и т.д.(ну и работу с Hibernate + JPA)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // это дравйвер для подключение нашего прилодения к бд(
+    // если проще то бд это розетка, в приложение это электроприбор, но т.к. у нас пока нельзя ещё подключить к розетке без вилки,
+    // то как раз драйвер это и есть даная вилка, индивидуальная для каждого прибора
+    // )
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    runtimeOnly 'org.postgresql:postgresql'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

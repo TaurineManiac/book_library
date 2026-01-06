@@ -1,1 +1,36 @@
-spring.application.name=book_library
+spring:
+  datasource:
+    #pass to db, in that case is a default pass
+    url: 'jdbc:postgresql://localhost:5432/library_db'
+    username: 'postgres'
+    #that mean project took password from enviroment settings, or if he not found, he took 12345
+    password: ${DB_PASSWORD:12345}
+    #we say, what driver project must use(postgresql driver exactly)
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    #show sql requests in console logs
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        #create sql logs more readable
+        format_sql: true
+        #dialect is like a language, with wich he can speak(PostgreSQl, MySQL,....)
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  application:
+    name:
+      book_library
+  profiles:
+    active: dev
+
+server:
+  port: 1488
+
+mvc:
+  format:
+
+    date: dd:MM:yyyy
+
+
