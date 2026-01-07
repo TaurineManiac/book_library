@@ -7,11 +7,14 @@ spring:
     password: ${DB_PASSWORD:12345}
     #we say, what driver project must use(postgresql driver exactly)
     driver-class-name: org.postgresql.Driver
-  jpa:
+  jpa: #Java Persistence API
     #show sql requests in console logs
     show-sql: true
     hibernate:
-      ddl-auto: update
+      # validate: Checks if the Java Entity matches the Database Schema.
+      # If the table is missing or columns are different -> Application STOP.
+      # Unlike 'update', it NEVER modifies the database itself.
+      ddl-auto: validate              #update
     properties:
       hibernate:
         #create sql logs more readable
