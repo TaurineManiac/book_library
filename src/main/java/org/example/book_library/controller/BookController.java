@@ -6,10 +6,10 @@ import org.example.book_library.domain.Book;
 import org.example.book_library.dto.request.BookCreateRequest;
 import org.example.book_library.dto.response.BookResponse;
 import org.example.book_library.service.inter.BookServiceInter;
+
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/library/books")
@@ -24,20 +24,21 @@ public class BookController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Book>> getAllBooks() {
-        return ResponseEntity.ok(bookService.getBooks());
+    public ResponseEntity<Page<Book>> getAllBooks(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size // Ставим просто число
+    ) {
+        return ResponseEntity.ok(bookService.getBooks(page, size));
     }
 
     @PutMapping("/update")
-    public ResponseEntity<List<Book>> updateBook(@RequestParam Long id,@Valid @RequestBody BookCreateRequest bookCreateRequest) {
-        bookService.updateBook(id,bookCreateRequest);
-        return ResponseEntity.ok(bookService.getBooks());
+    public ResponseEntity<BookResponse> updateBook(@RequestParam Long id,@Valid @RequestBody BookCreateRequest bookCreateRequest) {
+        return ResponseEntity.ok(bookService.updateBook(id,bookCreateRequest));
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<List<Book>> deleteBook(@RequestParam Long id) {
+    public void deleteBook(@RequestParam Long id) {
         bookService.deleteBookById(id);
-        return ResponseEntity.ok(bookService.getBooks());
     }
 
     @GetMapping("/find")

@@ -8,11 +8,11 @@ import org.example.book_library.dto.response.BookResponse;
 import org.example.book_library.mapper.inter.BookMapperInter;
 import org.example.book_library.repository.inter.BookRepositoryInter;
 import org.example.book_library.service.inter.BookServiceInter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -29,17 +29,19 @@ public class BookServiceImple implements BookServiceInter {
     }
 
     @Override
-    public List<Book> getBooks() {
-        return bookRepositoryInter.findAll();
+    public Page<Book> getBooks(int page,int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        return bookRepositoryInter.findAll(pageable);
     }
 
     @Transactional
     @Override
-    public void updateBook(Long id,BookCreateRequest bookCreateRequest) {
+    public BookResponse updateBook(Long id,BookCreateRequest bookCreateRequest) {
         Book existingBook=bookRepositoryInter.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Книга с id " + id + " не найдена."));
         bookMapperInter.updateEntityFromDto(bookCreateRequest, existingBook);
         bookRepositoryInter.save(existingBook);
+        return bookMapperInter.entityToBookResponse(existingBook);
     }
 
     @Transactional
