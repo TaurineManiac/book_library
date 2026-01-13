@@ -51,9 +51,8 @@ public class BookServiceImple implements BookServiceInter {
         bookRepositoryInter.deleteById(id);
     }
 
-    @Override
     public Book getBookById(Long id) {
-        bookRepositoryInter.findById(id).orElseThrow(()-> new EntityNotFoundException("Книга с id " + id + " не найдена."));
-        return bookRepositoryInter.findById(id).orElseThrow(() -> new RuntimeException("Book Not Found with "+ id + " id"));
+        return bookRepositoryInter.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Книга с id " + id + " не найдена."));
     }
 }
