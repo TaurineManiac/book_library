@@ -1,0 +1,19 @@
+spring:
+
+
+  jpa:
+    hibernate:
+      temp:
+        use_jdbc_metadata_defaults: false
+      ddl-auto: validate #update for simple realisation and main idea is H2(with PSQL dialect)
+      #and PostreSQL have a different types of data and hybernate can think that entity is different, but really is
+      #the same
+
+    show-sql: true
+    properties:
+      # Помогает избежать проблем с валидацией специфичных типов
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
