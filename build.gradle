@@ -26,7 +26,7 @@ repositories {
 
 dependencies {
 
-
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     //даёт нам различные аннтоации по типу @Entity и т.д.(ну и работу с Hibernate + JPA)
@@ -39,6 +39,9 @@ dependencies {
     // Этот стартер активирует LiquibaseAutoConfiguration
     implementation 'org.springframework.boot:spring-boot-starter-liquibase'
     implementation 'org.liquibase:liquibase-core'
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5'
     runtimeOnly 'org.postgresql:postgresql'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'

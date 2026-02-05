@@ -7,3 +7,5 @@ databaseChangeLog:
       #If you cram them all into a single file, it becomes unreadable. The include tag allows you to connect external files.
       file: db/changelog/changesets/01-create-books-table.yaml
       #path to migration from resources
+  - include: 
+      file: db/changelog/changesets/02-create-users-table.yaml
