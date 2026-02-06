@@ -2,9 +2,14 @@ databaseChangeLog:
   - changeSet:
       id: 02-create-users-table
       author: TaurineManiac
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: users
       changes:
         - createTable:
-            tableName: books
+            tableName: users
             columns:
               - column:
                   name: id

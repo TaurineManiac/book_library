@@ -9,7 +9,7 @@ import java.util.Map;
 @Getter
 @Setter
 @Builder
-public class BookErrorResponse {
+public class AppErrorResponse {
     private String message;
     private Map<String,String> errors;
     private Integer status;
