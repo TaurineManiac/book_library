@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.book_library.domain.User;
 import org.example.book_library.dto.request.UserRegistrationRequest;
+import org.example.book_library.dto.response.UserAuthenticationResponse;
 import org.example.book_library.dto.response.UserRegistrationResponse;
 import org.example.book_library.service.inter.AuthService;
 import org.springframework.http.HttpStatus;
@@ -24,5 +25,12 @@ public class UserController {
     @PostMapping("/registration")
     public ResponseEntity<UserRegistrationResponse> registerUser(@RequestBody @Valid UserRegistrationRequest userRegistrationRequest) {
         return ResponseEntity.ok(authService.register(userRegistrationRequest));
+    }
+
+    @PostMapping("/authentication")
+    public ResponseEntity<UserAuthenticationResponse> login(
+            @RequestBody @Valid UserRegistrationRequest userRegistrationRequest
+            ){
+        return ResponseEntity.ok(authService.login(userRegistrationRequest.getUsername(),userRegistrationRequest.getPassword()));
     }
 }
