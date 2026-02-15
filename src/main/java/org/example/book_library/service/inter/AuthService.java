@@ -5,4 +5,5 @@ import org.example.book_library.dto.response.UserRegistrationResponse;
 
 public interface AuthService {
     public UserRegistrationResponse register(UserRegistrationRequest userRegistrationRequest);
+    public String login(String username, String password);
 }
