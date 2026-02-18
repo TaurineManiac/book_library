@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.book_library.domain.Role;
 import org.example.book_library.domain.User;
 import org.example.book_library.dto.request.UserRegistrationRequest;
+import org.example.book_library.dto.response.UserAuthenticationResponse;
 import org.example.book_library.dto.response.UserRegistrationResponse;
 import org.example.book_library.exception.custom.UserAlreadyExistsException;
 import org.example.book_library.repository.inter.UserRepositoryInter;
@@ -48,7 +49,7 @@ public class AuthServiceImple implements AuthService {
     }
 
     @Override
-    public String login(String username, String password) {
+    public UserAuthenticationResponse login(String username, String password) {
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
@@ -58,8 +59,13 @@ public class AuthServiceImple implements AuthService {
         map.put("role",user.getRole().name());
         map.put("id", user.getId());
 
-        return jwtService.generateJWTToken(map,user);
+        jwtService.generateJWTToken(map,user);
 
-
+        return UserAuthenticationResponse.builder()
+                .jwtToken(jwtService.generateJWTToken(map,user))
+                .username(user.getUsername())
+                .authenticated(true)
+                .message("User login successfully.")
+                .build();
     }
 }

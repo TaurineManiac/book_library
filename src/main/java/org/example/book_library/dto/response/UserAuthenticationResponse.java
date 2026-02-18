@@ -10,4 +10,6 @@ import lombok.*;
 public class UserAuthenticationResponse {
     private String username;
     private String jwtToken;
+    private boolean authenticated;
+    private String message;
 }
