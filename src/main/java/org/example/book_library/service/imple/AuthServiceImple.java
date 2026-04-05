@@ -12,6 +12,7 @@ import org.example.book_library.security.JWTService;
 import org.example.book_library.service.inter.AuthService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -59,10 +60,10 @@ public class AuthServiceImple implements AuthService {
         map.put("role",user.getRole().name());
         map.put("id", user.getId());
 
-        jwtService.generateJWTToken(map,user);
+        String token = jwtService.generateJWTToken(map,user);
 
         return UserAuthenticationResponse.builder()
-                .jwtToken(jwtService.generateJWTToken(map,user))
+                .jwtToken(token)
                 .username(user.getUsername())
                 .authenticated(true)
                 .message("User login successfully.")

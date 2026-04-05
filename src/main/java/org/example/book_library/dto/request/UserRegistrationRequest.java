@@ -13,4 +13,4 @@ public class UserRegistrationRequest {
     private String username;
     @NotBlank
     private String password;
-}
+}   
